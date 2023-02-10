@@ -7,14 +7,14 @@
       <el-select v-model="query.type" clearable placeholder="类型" class="filter-item" style="width: 130px">
         <el-option v-for="item in queryTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
       </el-select>
-      <el-select v-model="userType" clearable placeholder="用户来源" class="filter-item" style="width: 130px">
-        <el-option
-          v-for="item in statusOptions"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
-      </el-select>
+      <!--<el-select v-model="userType" clearable placeholder="用户来源" class="filter-item" style="width: 130px">-->
+        <!--<el-option-->
+          <!--v-for="item in statusOptions"-->
+          <!--:key="item.value"-->
+          <!--:label="item.label"-->
+          <!--:value="item.value"-->
+        <!--/>-->
+      <!--</el-select>-->
       <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="toQuery">搜索</el-button>
       <!-- 新增 -->
       <el-button
@@ -44,7 +44,7 @@
     <!--表格渲染-->
     <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
       <el-table-column prop="uid" v-if="false" label="用户id" />
-      <el-table-column prop="nickname" label="用户昵称" />
+      <el-table-column prop="realName" label="真实姓名" />
       <el-table-column ref="table" prop="avatar" label="用户头像">
         <template slot-scope="scope">
           <a :href="scope.row.avatar" style="color: #42b983" target="_blank"><img :src="scope.row.avatar" alt="点击打开" class="el-avatar"></a>
@@ -189,7 +189,7 @@ export default {
       delLoading: false,
       userType: '',
       queryTypeOptions: [
-        { key: 'nickname', display_name: '用户昵称' },
+        { key: 'realName', display_name: '真实姓名' },
         { key: 'phone', display_name: '手机号码' }
       ],
       statusOptions: [
@@ -301,7 +301,8 @@ export default {
         serviceEnd:data.serviceEnd,
         validTimeArr: [data.serviceStart,data.serviceEnd],
         sex:data.sex,
-        uricSn:data.uricSn
+        uricSn:data.uricSn,
+        contact:data.contact
       }
       _this.dialog = true
     },

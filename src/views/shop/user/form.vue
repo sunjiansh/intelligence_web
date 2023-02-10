@@ -1,6 +1,6 @@
 <template>
-  <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" :visible.sync="dialog" :title="isAdd ? '新增' : '编辑'" width="500px">
-    <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
+  <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" :visible.sync="dialog" :title="isAdd ? '新增' : '编辑'" width="550px">
+    <el-form ref="form" :model="form" :rules="rules" size="small" label-width="120px">
       <el-form-item label="用户昵称" v-if="false">
         <el-input v-model="form.nickname" style="width: 370px;" />
       </el-form-item>
@@ -49,7 +49,9 @@
           end-placeholder="结束日期">
         </el-date-picker>
       </el-form-item>
-
+      <el-form-item label="SOS联系人电话" >
+        <el-input v-model="form.contact" placeholder="多个手机号用英文输入法“,”隔开" style="width: 370px;" />
+      </el-form-item>
       <el-form-item label="用户备注">
         <el-input v-model="form.mark" style="width: 370px;" />
       </el-form-item>
