@@ -235,7 +235,7 @@
             });
         },
         /* 初始化第一次的数据 */
-        initData: function () {
+        : function () {
 
             /* 拉取数据需要使用的值 */
             this.state = 0;

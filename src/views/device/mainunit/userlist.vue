@@ -24,22 +24,16 @@
         icon="el-icon-refresh"
         @click="toQuery"
       >刷新</el-button>
-      <el-button
-        class="filter-item"
-        size="mini"
-        type="primary"
-        icon="el-icon-plus"
-        @click="add"
-      >
-        新增
-      </el-button>
+      <!--<el-button-->
+        <!--class="filter-item"-->
+        <!--size="mini"-->
+        <!--type="primary"-->
+        <!--icon="el-icon-plus"-->
+        <!--@click="add"-->
+      <!--&gt;-->
+        <!--新增-->
+      <!--</el-button>-->
     </div>
-    <!--表单组件-->
-    <eForm ref="form" :is-add="isAdd" />
-    <pForm ref="formp" :is-add="isAdd" />
-    <detail ref="formd" />
-
-
 
     <!--表格渲染-->
     <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
@@ -51,40 +45,9 @@
         </template>
       </el-table-column>
       <el-table-column prop="phone" label="手机号码" />
-      <el-table-column prop="imei" label="手环IMEI" />
-      <el-table-column prop="nowMoney"v-if="false" label="用户余额" />
-      <el-table-column prop="brokeragePrice" v-if="false"label="佣金金额" />
-      <el-table-column prop="integral" v-if="false" label="用户积分" />
-      <el-table-column  prop="serviceStart" label="服务器开始日期" width="140">
+      <el-table-column  prop="createTime" label="创建日期" width="140">
         <template slot-scope="scope">
-          <span>{{ scope.row.serviceStart }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column  prop="serviceEnd" label="服务器结束日期" width="140">
-        <template slot-scope="scope">
-          <span>{{ scope.row.serviceEnd }}</span>
-        </template>
-      </el-table-column>
-
-      <!--<el-table-column  prop="createTime" label="创建日期" width="140">-->
-        <!--<template slot-scope="scope">-->
-          <!--<span>{{ scope.row.createTime }}</span>-->
-        <!--</template>-->
-      <!--</el-table-column>-->
-      <el-table-column label="同步手环信息" align="center">
-        <template slot-scope="scope">
-          <div @click="syncWatchBindInfo(scope.row)">
-            <el-tag v-if="scope.row.watchBind == 1" style="cursor: pointer" :type="''">已同步</el-tag>
-            <el-tag v-else style="cursor: pointer" :type=" 'info' ">未同步</el-tag>
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column label="同步尿酸分析仪信息" align="center">
-        <template slot-scope="scope">
-          <div @click="syncUricBindInfo(scope.row)">
-            <el-tag v-if="scope.row.uricBind == 1" style="cursor: pointer" :type="''">已同步</el-tag>
-            <el-tag v-else style="cursor: pointer" :type=" 'info' ">未同步</el-tag>
-          </div>
+          <span>{{ scope.row.createTime }}</span>
         </template>
       </el-table-column>
       <el-table-column label="状态" align="center">
@@ -95,64 +58,19 @@
           </div>
         </template>
       </el-table-column>
-      <!--<el-table-column label="用户来源" align="center">-->
-        <!--<template slot-scope="scope">-->
-          <!--<div>-->
-            <!--<el-tag v-if="scope.row.userType == 'wechat'">公众号</el-tag>-->
-            <!--<el-tag v-else-if="scope.row.userType == 'routine'">小程序</el-tag>-->
-            <!--<el-tag v-else-if="scope.row.userType == 'pc'">PC</el-tag>-->
-            <!--<el-tag v-else>H5</el-tag>-->
-          <!--</div>-->
-        <!--</template>-->
-      <!--</el-table-column>-->
-      <el-table-column prop="spreadUid" v-if="false" label="推荐人" />
-      <el-table-column prop="payCount" v-if="false" label="购买次数" />
-      <el-table-column v-if="checkPermission(['admin','YXUSER_ALL','YXUSER_EDIT','YXUSER_DELETE'])" label="操作" width="215" align="center" fixed="right">
+      <el-table-column label="用户来源" align="center">
         <template slot-scope="scope">
-          <!--TODO 暂时注释掉该功能-->
-          <!--<el-button-->
-            <!--v-permission="['admin','YXUSER_ALL','YXUSER_EDIT']"-->
-            <!--size="mini"-->
-            <!--type="danger"-->
-            <!--@click="editD(scope.row)"-->
-          <!--&gt;查看下级</el-button>-->
-          <el-dropdown size="mini" split-button type="primary" trigger="click">
-            操作
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>
-                <el-button
-                  v-permission="['admin','YXUSER_ALL','YXUSER_EDIT']"
-                  size="mini"
-                  type="primary"
-                  @click="edit(scope.row)"
-                >修改用户</el-button>
-              </el-dropdown-item>
-              <!--<el-dropdown-item>
-                <el-button
-                  v-permission="['admin','YXUSER_ALL','YXUSER_EDIT']"
-                  size="mini"
-                  type="primary"
-                  @click="syncWatchBindInfo(scope.row)"
-                >同步手环</el-button>
-              </el-dropdown-item>-->
-              <el-dropdown-item>
-                <el-button
-                  v-permission="['admin','YXUSER_ALL','YXUSER_EDIT']"
-                  size="mini"
-                  type="primary"
-                  @click="editP(scope.row)"
-                >修改余额</el-button>
-              </el-dropdown-item>
-              <el-dropdown-item>
-                <el-button
-                  v-permission="['admin','YXUSER_ALL','YXUSER_DELETE']"
-                  size="mini"
-                  type="danger"
-                  @click="deleteUser(scope.row.uid)"
-                >删除用户</el-button>
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+          <div>
+            <el-tag v-if="scope.row.userType == 'wechat'">公众号</el-tag>
+            <el-tag v-else-if="scope.row.userType == 'routine'">小程序</el-tag>
+            <el-tag v-else-if="scope.row.userType == 'pc'">PC</el-tag>
+            <el-tag v-else>H5</el-tag>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column>
+        <template slot-scope="scope">
+          <el-button size="mini" type="primary" @click="bindUser(scope.row)">绑定</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -166,28 +84,22 @@
       @current-change="pageChange"
     />
   </div>
-
-
-
-
-
 </template>
 
 <script>
 import checkPermission from '@/utils/permission'
 import initData from '@/mixins/crud'
-import { del, onStatus,add,syncWatchBindInfo,syncUricBindInfo } from '@/api/yxUser'
-import eForm from './form'
-import pForm from './formp'
-import detail from './detail'
+import { del, onStatus,add } from '@/api/yxUser'
+
 import { formatTime } from '@/utils/index'
 export default {
-  components: { eForm, pForm, detail },
+  components: {  },
   mixins: [initData],
   data() {
     return {
       delLoading: false,
       userType: '',
+      props:["selmid","a"],//接收父页面传递的属性值
       queryTypeOptions: [
         { key: 'nickname', display_name: '用户昵称' },
         { key: 'phone', display_name: '手机号码' }
@@ -260,6 +172,10 @@ export default {
       this.isAdd = true
       this.$refs.form.dialog = true
     },
+    bindUser(row){
+      var uid = row.uid
+      this.$emit("tt",uid);//这里调用父页面的函数
+    },
     edit(data) {
       this.isAdd = false
       const _this = this.$refs.form
@@ -295,13 +211,7 @@ export default {
         cleanTime: data.cleanTime,
         addres: data.addres,
         adminid: data.adminid,
-        loginType: data.loginType,
-        imei:data.imei,
-        serviceStart:data.serviceStart,
-        serviceEnd:data.serviceEnd,
-        validTimeArr: [data.serviceStart,data.serviceEnd],
-        sex:data.sex,
-        uricSn:data.uricSn
+        loginType: data.loginType
       }
       _this.dialog = true
     },
@@ -345,38 +255,6 @@ export default {
 
         })
         .catch(_ => {})
-    },
-    syncWatchBindInfo (row) {
-      var data = {};
-      data['uid'] = row.uid
-      data['imei'] = row.imei
-
-      syncWatchBindInfo(data).then(res => {
-        this.$notify({
-          title: '同步成功',
-          type: 'success',
-          duration: 2500
-        })
-        this.toQuery()
-      }).catch(err => {
-        console.log(err.response.data.message)
-      })
-    },
-    syncUricBindInfo (row) {
-      var data = {};
-      data['uid'] = row.uid
-      data['uricSn'] = row.uricSn
-
-      syncUricBindInfo(data).then(res => {
-        this.$notify({
-          title: '同步成功',
-          type: 'success',
-          duration: 2500
-        })
-        this.toQuery()
-      }).catch(err => {
-        console.log(err.response.data.message)
-      })
     }
   }
 }

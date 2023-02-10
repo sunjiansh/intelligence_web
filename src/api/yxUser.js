@@ -47,3 +47,19 @@ export function getSpread(data) {
     data
   })
 }
+
+export function syncWatchBindInfo(data) {
+  return request({
+    url: 'api/yxUser/syncWatchBindInfo',
+    method: 'post',
+    data
+  })
+}
+
+export function syncUricBindInfo(data) {
+  return request({
+    url: 'api/yxUser/syncUricBindInfo',
+    method: 'post',
+    data
+  })
+}

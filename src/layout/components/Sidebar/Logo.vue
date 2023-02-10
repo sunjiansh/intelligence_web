@@ -25,8 +25,8 @@ export default {
   },
   data() {
     return {
-      title: 'YSHOP-后台管理',
-      logo: Logo
+      title: '后台管理'
+      //logo: Logo
     }
   }
 }

@@ -2,7 +2,7 @@ module.exports = {
   /**
    * @description 网站标题
    */
-  title: 'YSHOP-3.3',
+  title: '',
   /**
    * @description 是否显示 tagsView
    */
@@ -42,9 +42,9 @@ module.exports = {
   /**
    * 底部文字，支持html语法
    */
-  footerTxt: '© 2018-2022 YSHOP <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">All Rights Reserved</a>',
+  footerTxt: '© 2018-2022  <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">All Rights Reserved</a>',
   /**
    * 备案号
    */
-  caseNumber: '豫ICP备17049587-2号'
+  caseNumber: '苏ICP XXXXX'
 }

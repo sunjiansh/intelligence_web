@@ -35,7 +35,11 @@ export default {
         uid: '',
         nickname: '',
         money: '',
-        ptype: '1'
+        ptype: '1',
+        imei:'',
+        serviceStart:'',
+        serviceEnd:'',
+        uricSn:''
       },
       rules: {
       }
@@ -116,7 +120,12 @@ export default {
         cleanTime: '',
         addres: '',
         adminid: '',
-        loginType: ''
+        loginType: '',
+        imei:'',
+        serviceStart:'',
+        serviceEnd:'',
+        validTimeArr: [],
+        sex:null
       }
     }
   }

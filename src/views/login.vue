@@ -3,7 +3,7 @@
     <div style="display:flex;justify-content:space-between;align-items: center;">
       <div style="padding: 0 60px 0 0">
         <h3 style="color: #ffffff;font-size: 24px;padding: 0;margin-bottom: 10px">
-          YSHOP单商户B2C电商系统
+          康泰中芯
         </h3>
         <ul style="margin: 0;color: #ffffff;font-size: 15px;line-height: 25px;padding-left: 20px">
           <li>Springboot2</li>
@@ -14,12 +14,12 @@
           <li>Vue</li>
         </ul>
         <h3 style="color: #ffffff;">
-          官网:https://www.yixiang.co
+          官网:https://XXXXXXX
         </h3>
       </div>
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" label-position="left" label-width="0px" class="login-form">
       <h3 class="title">
-        YSHOP后台管理系统-3.3
+        康泰中芯系统管理后台
       </h3>
       <el-form-item prop="username">
         <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号">

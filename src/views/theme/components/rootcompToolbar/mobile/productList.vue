@@ -16,7 +16,7 @@
             <span>{{activeComponent.componentContent.categoryName}}</span>
             <div class="operation">
               <span class="iconfont" @click="replaceCategory">&#xe66c;</span>
-              <span class="iconfont" @click="deleteCategory">&#xe633;</span>
+              <span class="iconfont" @click="Category">&#xe633;</span>
             </div>
           </div>
         </div>
