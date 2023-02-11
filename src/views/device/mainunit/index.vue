@@ -39,7 +39,7 @@
                   <el-input v-model="form.brand" style="width: 370px;" />
                 </el-form-item>
                 <el-form-item label="备注">
-                  <el-input :rows="3" v-model="form.mark" type="textarea" style="width: 370px;" />
+                  <el-input :rows="3" v-if="true" v-model="form.mark" type="textarea" style="width: 370px;" />
                 </el-form-item>
                 <el-form-item label="是否激活">
                   <el-radio v-for="item in dict.is_active" :key="item.id" v-model="form.isActive" :label="item.value">{{ item.label }}</el-radio>
@@ -59,7 +59,7 @@
               <el-table-column v-if="columns.visible('model')" prop="model" label="型号" />
               <el-table-column v-if="columns.visible('sn')" prop="sn" label="序列号" />
               <el-table-column v-if="columns.visible('brand')" prop="brand" label="品牌" />
-              <el-table-column v-if="columns.visible('createTime')" prop="createTime" label="创建时间">
+              <el-table-column v-if="false" prop="createTime" label="创建时间">
                 <template slot-scope="scope">
                   <span>{{ parseTime(scope.row.createTime) }}</span>
                 </template>
@@ -72,7 +72,7 @@
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column v-if="columns.visible('mark')" prop="mark" label="备注" />
+              <el-table-column v-if="false" prop="mark" label="备注" />
               <el-table-column v-permission="['admin','dMailunit:edit','dMailunit:del']" label="操作" width="150px" align="center">
                 <template slot-scope="scope">
                   <udOperation
@@ -96,6 +96,8 @@
             <el-table ref="table"  :data="userdata" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
               <el-table-column type="selection" width="55" />
               <el-table-column v-if="false" prop="id" label="id" />
+              <el-table-column  prop="realName" label="真实姓名" />
+              <el-table-column  prop="phone" label="手机号码" />
               <el-table-column v-if="columns.visible('uid')" prop="uid" label="用户ID" />
               <el-table-column v-if="columns.visible('mid')" prop="mid" label="主机ID" />
               <el-table-column v-permission="['admin','dMdeviceUser:edit','dMdeviceUser:del']" label="操作" width="150px" align="center">
@@ -145,9 +147,12 @@
                 <el-table ref="table"  :data="this.devicedata" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
                   <el-table-column type="selection" width="55" />
                   <el-table-column v-if="false" prop="id" label="id" />
-                  <el-table-column v-if="columns.visible('mid')" prop="mid" label="主机ID" />
-                  <el-table-column v-if="columns.visible('did')" prop="did" label="其他设备ID" />
-                  <el-table-column v-if="columns.visible('dtype')" prop="dtype" label="设备类型" />
+                  <el-table-column prop="blName" label="蓝牙名称" />
+                  <el-table-column prop="blId" label="蓝牙ID" />
+                  <el-table-column prop="model" label="型号" />
+                  <el-table-column v-if="false" prop="mid" label="主机ID" />
+                  <el-table-column v-if="false" prop="did" label="其他设备ID" />
+                  <el-table-column v-if="false" prop="dtype" label="设备类型" />
                   <el-table-column v-permission="['admin','dMdeviceDevice:edit','dMdeviceDevice:del']" label="操作" width="150px" align="center">
                     <template slot-scope="scope">
                       <el-button  type="danger" icon="el-icon-delete" size="mini" @click="deleteDeviceById(scope.row)"/>
@@ -160,9 +165,12 @@
                 <el-table ref="table"  :data="this.devicedata" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
                   <el-table-column type="selection" width="55" />
                   <el-table-column v-if="false" prop="id" label="id" />
-                  <el-table-column v-if="columns.visible('mid')" prop="mid" label="主机ID" />
-                  <el-table-column v-if="columns.visible('did')" prop="did" label="其他设备ID" />
-                  <el-table-column v-if="columns.visible('dtype')" prop="dtype" label="设备类型" />
+                  <el-table-column prop="name" label="名称" />
+                  <el-table-column prop="sn" label="SN号" />
+                  <el-table-column prop="model" label="型号" />
+                  <el-table-column v-if="false" prop="mid" label="主机ID" />
+                  <el-table-column v-if="false" prop="did" label="其他设备ID" />
+                  <el-table-column v-if="false" prop="dtype" label="设备类型" />
                   <el-table-column v-permission="['admin','dMdeviceDevice:edit','dMdeviceDevice:del']" label="操作" width="150px" align="center">
                     <template slot-scope="scope">
                       <el-button  type="danger" icon="el-icon-delete" size="mini" @click="deleteDeviceById(scope.row)"/>
@@ -175,9 +183,12 @@
                 <el-table ref="table"  :data="this.devicedata" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
                   <el-table-column type="selection" width="55" />
                   <el-table-column v-if="false" prop="id" label="id" />
-                  <el-table-column v-if="columns.visible('mid')" prop="mid" label="主机ID" />
-                  <el-table-column v-if="columns.visible('did')" prop="did" label="其他设备ID" />
-                  <el-table-column v-if="columns.visible('dtype')" prop="dtype" label="设备类型" />
+                  <el-table-column prop="blName" label="蓝牙名称" />
+                  <el-table-column prop="blId" label="蓝牙ID" />
+                  <el-table-column prop="model" label="型号" />
+                  <el-table-column v-if="false" prop="mid" label="主机ID" />
+                  <el-table-column v-if="false" prop="did" label="其他设备ID" />
+                  <el-table-column v-if="false" prop="dtype" label="设备类型" />
                   <el-table-column v-permission="['admin','dMdeviceDevice:edit','dMdeviceDevice:del']" label="操作" width="150px" align="center">
                     <template slot-scope="scope">
                       <el-button  type="danger" icon="el-icon-delete" size="mini" @click="deleteDeviceById(scope.row)"/>
@@ -205,9 +216,12 @@
                 <el-table ref="table"  :data="this.devicedata" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
                   <el-table-column type="selection" width="55" />
                   <el-table-column v-if="false" prop="id" label="id" />
-                  <el-table-column v-if="columns.visible('mid')" prop="mid" label="主机ID" />
-                  <el-table-column v-if="columns.visible('did')" prop="did" label="其他设备ID" />
-                  <el-table-column v-if="columns.visible('dtype')" prop="dtype" label="设备类型" />
+                  <el-table-column prop="name" label="名称" />
+                  <el-table-column prop="brand" label="品牌" />
+                  <el-table-column prop="model" label="型号" />
+                  <el-table-column v-if="false" prop="mid" label="主机ID" />
+                  <el-table-column v-if="false" prop="did" label="其他设备ID" />
+                  <el-table-column v-if="false" prop="dtype" label="设备类型" />
                   <el-table-column v-permission="['admin','dMdeviceDevice:edit','dMdeviceDevice:del']" label="操作" width="150px" align="center">
                     <template slot-scope="scope">
                       <el-button  type="danger" icon="el-icon-delete" size="mini" @click="deleteDeviceById(scope.row)"/>
@@ -222,7 +236,7 @@
       </el-main>
 
 
-      <el-dialog :visible.sync="userlistdialog" height="400px">
+      <el-dialog :visible.sync="userlistdialog" v-if="userlistdialog" height="400px">
         用户列表
         <userlist ref="userform" a="xxx" :selmid.sync="selmid" @tt="saveUser"></userlist>
       </el-dialog>
@@ -232,27 +246,27 @@
         <!--<watchlist ref="watchform" :selmid.sync="selmid" @tt="saveDevice"></watchlist>-->
       <!--</el-dialog>-->
 
-      <el-dialog :visible.sync="bloodlistdialog" height="400px" >
+      <el-dialog :visible.sync="bloodlistdialog" v-if="bloodlistdialog" height="400px" >
         无创血糖仪列表
         <bloodlist ref="bloodform" :selmid.sync="selmid" @tt="saveDevice"></bloodlist>
       </el-dialog>
 
-      <el-dialog :visible.sync="tumblelistdialog" height="400px" >
+      <el-dialog :visible.sync="tumblelistdialog" v-if="tumblelistdialog" height="400px" >
         跌倒报警器列表
         <tumblelist ref="tumbleform" :selmid.sync="selmid" @tt="saveDevice"></tumblelist>
       </el-dialog>
 
-      <el-dialog :visible.sync="balancelistdialog" height="400px" >
+      <el-dialog :visible.sync="balancelistdialog" v-if="balancelistdialog" height="400px" >
         体脂秤列表
         <balancelist ref="balanceform" :selmid.sync="selmid" @tt="saveDevice"></balancelist>
       </el-dialog>
 
-      <el-dialog :visible.sync="uriclistdialog" height="400px" >
+      <el-dialog :visible.sync="uriclistdialog" v-if="uriclistdialog" height="400px" >
         尿酸分析仪列表
         <uriclist ref="uricform" :selmid.sync="selmid" @tt="saveDevice"></uriclist>
       </el-dialog>
 
-      <el-dialog :visible.sync="ecglistdialog" height="400px" >
+      <el-dialog :visible.sync="ecglistdialog" v-if="ecglistdialog" height="400px" >
         心电图检测仪列表
         <ecglist ref="ecgform" :selmid.sync="selmid" @tt="saveDevice"></ecglist>
       </el-dialog>

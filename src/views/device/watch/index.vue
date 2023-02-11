@@ -162,7 +162,7 @@ export default {
           type: 'success',
           duration: 2500
         })
-        this.toQuery()
+        this.crud.toQuery()
       }).catch(err => {
         console.log(err.response.data.message)
       })

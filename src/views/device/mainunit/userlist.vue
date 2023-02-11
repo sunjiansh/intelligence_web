@@ -38,14 +38,15 @@
     <!--表格渲染-->
     <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
       <el-table-column prop="uid" v-if="false" label="用户id" />
-      <el-table-column prop="nickname" label="用户昵称" />
+      <el-table-column  v-if="false"prop="nickname"  label="用户昵称" />
+      <el-table-column prop="realName" label="真实姓名" />
       <el-table-column ref="table" prop="avatar" label="用户头像">
         <template slot-scope="scope">
           <a :href="scope.row.avatar" style="color: #42b983" target="_blank"><img :src="scope.row.avatar" alt="点击打开" class="el-avatar"></a>
         </template>
       </el-table-column>
       <el-table-column prop="phone" label="手机号码" />
-      <el-table-column  prop="createTime" label="创建日期" width="140">
+      <el-table-column v-if="false" prop="createTime" label="创建日期" width="140">
         <template slot-scope="scope">
           <span>{{ scope.row.createTime }}</span>
         </template>
@@ -141,7 +142,7 @@ export default {
         .catch(() => { })
     },
     beforeInit() {
-      this.url = 'api/yxUser'
+      this.url = 'api/yxUser/bindAvailable'
       const sort = 'uid,desc'
       this.params = { page: this.page, size: this.size, sort: sort, userType: this.userType }
       const query = this.query
@@ -175,6 +176,7 @@ export default {
     bindUser(row){
       var uid = row.uid
       this.$emit("tt",uid);//这里调用父页面的函数
+       this.toQuery()
     },
     edit(data) {
       this.isAdd = false

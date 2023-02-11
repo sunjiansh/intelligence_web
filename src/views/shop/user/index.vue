@@ -95,6 +95,7 @@
           </div>
         </template>
       </el-table-column>
+
       <!--<el-table-column label="用户来源" align="center">-->
         <!--<template slot-scope="scope">-->
           <!--<div>-->
@@ -302,7 +303,7 @@ export default {
         validTimeArr: [data.serviceStart,data.serviceEnd],
         sex:data.sex,
         uricSn:data.uricSn,
-        contact:data.contact
+        sosContact:data.sosContact
       }
       _this.dialog = true
     },
@@ -351,6 +352,7 @@ export default {
       var data = {};
       data['uid'] = row.uid
       data['imei'] = row.imei
+      data['sosContact'] = row.sosContact
 
       syncWatchBindInfo(data).then(res => {
         this.$notify({
@@ -367,6 +369,7 @@ export default {
       var data = {};
       data['uid'] = row.uid
       data['uricSn'] = row.uricSn
+
 
       syncUricBindInfo(data).then(res => {
         this.$notify({

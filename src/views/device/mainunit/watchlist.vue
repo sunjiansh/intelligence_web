@@ -92,6 +92,7 @@
       bindDevice(row){
         var id = row.id
         this.$emit("tt",id);//这里调用父页面的函数
+        this.toQuery()
       }
     }
   }
