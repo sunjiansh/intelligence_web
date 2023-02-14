@@ -112,8 +112,8 @@
         <el-table-column v-if="columns.visible('name')" prop="name" label="围栏名称" />
         <el-table-column v-if="columns.visible('address')" prop="address" label="围栏地址" />
         <el-table-column v-if="columns.visible('regionRange')" prop="regionRange" label="围栏半径（单位：米）" />
-        <el-table-column v-if="columns.visible('lon')" prop="lon" label="经度" />
-        <el-table-column v-if="columns.visible('lat')" prop="lat" label="纬度" />
+        <el-table-column v-if="false" prop="lon" label="经度" />
+        <el-table-column v-if="false" prop="lat" label="纬度" />
         <!--<el-table-column v-if="columns.visible('createTime')" prop="createTime" label="创建时间">-->
           <!--<template slot-scope="scope">-->
             <!--<span>{{ parseTime(scope.row.createTime) }}</span>-->
@@ -149,7 +149,7 @@ import pagination from '@crud/Pagination'
 import MaterialList from "@/components/material";
 import Userlist from './userlist'
 import Watchlist from './watchlist'
-import MapSelect from './MapSelect'
+
 
 
 
@@ -230,15 +230,6 @@ export default {
     toggleWatchListDialog(){
       this.watchlistdialog = !this.watchlistdialog
     },
-    openMap() {
-      this.mapselectdialog = !this.mapselectdialog
-      //this.initMap()
-      //this.$refs.ms.show();
-      // 根据省市区设置初始值
-      // this.$refs.ms.setLocationByAddress(this.mainForm.address);
-      // 根据经纬度设置初始值
-     // this.$refs.ms.setLocationByLatLng(this.mainForm.lat, this.mainForm.lng);
-    },
     searchddd(){
       if(this.searhAdddress.trim==''){
         return
@@ -257,10 +248,83 @@ export default {
       this.longitude = 119
       if (this.latitude !== 0 || this.longitude !== 0) {
         this.initMap()
+        this.initCircle()
       }
     },
     saveLatLng(){
       this.positionDialog = false
+    },
+
+    clearMarkers(){
+      if(this.point != null){
+        this.point.setMap(null)
+      }
+    },
+    addMarker(latLng){
+      let maketLyer = new window.TMap.MultiMarker({
+        map: this.map,
+        style: {
+          myStyle: new window.TMap.MarkerStyle({
+            width: 25, // 点标记样式宽度（像素）
+            height: 35 // 点标记样式高度（像素）
+          })
+        },
+        geometries: [
+          {
+            id: 'label-layer', // 点标记唯一标识，后续如果有删除、修改位置等操作，都需要此id
+            styleId: 'myStyle', // 指定样式id
+            position: new window.TMap.LatLng(latLng.lat, latLng.lng), // 点标记坐标位置
+            properties: {
+              // 自定义属性
+              title: 'marker1'
+            }
+          }
+        ]
+      })
+      this.point = maketLyer
+    },
+    clearCircles(){
+      if(this.circle != null){
+        this.circle.setMap(null)
+      }
+    },
+    addCircle(latLng,radius){
+      var center=new window.TMap.LatLng(latLng.lat,latLng.lng);
+      let map = this.map
+      var circle = new TMap.MultiCircle({
+        map,
+        styles: { // 设置圆形样式
+          'circle': new TMap.CircleStyle({
+            'color': 'rgba(41,91,255,0.16)',
+            'showBorder': true,
+            'borderColor': 'rgba(41,91,255,1)',
+            'borderWidth': 2,
+          }),
+        },
+        geometries: [{
+          styleId: 'circle',
+          center: center, //圆形中心点坐标
+          radius: radius,	//半径（单位：米）
+        }],
+      });
+      this.circle = circle
+    },
+    initCircle(){
+        const timer = setInterval(() => {
+          if (this.map != null) {
+            if(this.form.lat != null && this.form.lon != null && this.form.regionRange > 0){
+              this.clearMarkers()
+              this.clearCircles()
+              this.addMarker({'lat':this.form.lat,'lng':this.form.lon})
+              this.addCircle({'lat':this.form.lat,'lng':this.form.lon},this.form.regionRange)
+              this.setCenter(this.map,[this.form.lat,this.form.lon])
+            }
+            clearInterval(timer)
+          }
+        }, 200)
+    },
+    setCenter(map, arr) {
+      map.setCenter(new window.TMap.LatLng(arr[0], arr[1]))
     },
     initMap() {
       const timer = setInterval(() => {
@@ -386,71 +450,6 @@ export default {
       //   info.setContent(event.geometry.position.toString())
       //
       // })
-    },
-    setCenter(map, arr) {
-      map.setCenter(new window.TMap.LatLng(arr[0], arr[1]))
-    },
-    clearMarkers(){
-      if(this.point != null){
-        this.point.setMap(null)
-      }
-    },
-    addMarker(latLng){
-      let maketLyer = new window.TMap.MultiMarker({
-        map: this.map,
-        style: {
-          myStyle: new window.TMap.MarkerStyle({
-            width: 25, // 点标记样式宽度（像素）
-            height: 35 // 点标记样式高度（像素）
-          })
-        },
-        geometries: [
-          {
-            id: 'label-layer', // 点标记唯一标识，后续如果有删除、修改位置等操作，都需要此id
-            styleId: 'myStyle', // 指定样式id
-            position: new window.TMap.LatLng(latLng.lat, latLng.lng), // 点标记坐标位置
-            properties: {
-              // 自定义属性
-              title: 'marker1'
-            }
-          }
-        ]
-      })
-      this.point = maketLyer
-    },
-    clearCircles(){
-      if(this.circle != null){
-        this.circle.setMap(null)
-      }
-    },
-    addCircle(latLng,radius){
-      var center=new window.TMap.LatLng(latLng.lat,latLng.lng);
-      let map = this.map
-      var circle = new TMap.MultiCircle({
-        map,
-        styles: { // 设置圆形样式
-          'circle': new TMap.CircleStyle({
-            'color': 'rgba(41,91,255,0.16)',
-            'showBorder': true,
-            'borderColor': 'rgba(41,91,255,1)',
-            'borderWidth': 2,
-          }),
-        },
-        geometries: [{
-          styleId: 'circle',
-          center: center, //圆形中心点坐标
-          radius: radius,	//半径（单位：米）
-        }],
-      });
-      this.circle = circle
-    },
-    initCircle(){
-      //if(this.form.lat != null && this.form.lng != null && this.form.regionRange > 0)(
-       // this.clearMarkers()
-      //  this.clearCircles()
-       // this.addMarker({'lat':this.form.lat,'lng':this.form.lng})
-       // this.addCircle({'lat':this.form.lat,'lng':this.form.lng},this.form.regionRange)
-      //)
     }
   }
 }
