@@ -149,7 +149,7 @@ import pagination from '@crud/Pagination'
 import MaterialList from "@/components/material";
 import Userlist from './userlist'
 import Watchlist from './watchlist'
-
+import {initMap} from "../../../utils/TMap"
 
 
 
@@ -327,15 +327,53 @@ export default {
       map.setCenter(new window.TMap.LatLng(arr[0], arr[1]))
     },
     initMap() {
-      const timer = setInterval(() => {
-        const map = document.querySelector('#map')
-        if (map) {
-          const address = [this.latitude, this.longitude]
-          this.loadInitialMap('map', address, '')
-          clearInterval(timer)
-        }
-      }, 200)
+      // const timer = setInterval(() => {
+      //   const map = document.querySelector('#map')
+      //   if (map) {
+      //     const address = [this.latitude, this.longitude]
+      //     this.loadInitialMap('map', address, '')
+      //     clearInterval(timer)
+      //   }
+      // }, 200)
+
+
+      var arr = [30,119]
+
+      initMap().then((TMap) => {
+        this.TXMap = TMap;
+        let center = new TMap.LatLng(arr[0],arr[1])
+        this.map = new TMap.Map("map", {
+          center: center, //设置地图中心点坐标
+          zoom: 12, //设置地图缩放级别
+          //viewMode: "2D",
+        });
+
+        this.map.on('click', (evt) => {
+          this.clickHandler(evt)
+          console.log(evt)
+          // 获取click事件返回的poi信息
+          const poi = evt.poi
+          if (poi) {
+            // 拾取到POI
+            //info.setContent(poi.name).setPosition(poi.latLng).open()
+          } else {
+            // 没有拾取到POI
+            //info.close()
+          }
+        })
+        // 自执行中心点方法
+        this.setCenter(this.map, arr)
+
+      })
+
+
+
     },
+
+
+
+
+
     // 地图点击事件
     clickHandler(evt) {
       this.form.lat = evt.latLng.lat
@@ -363,12 +401,16 @@ export default {
       // 设置中心点坐标
       const center = new window.TMap.LatLng(arr[0], arr[1])
       // 初始化地图
-      const map = new window.TMap.Map(document.getElementById(domID), {
-        //rotation: 20, // 设置地图旋转角度
-        //pitch: 30, // 设置俯仰角度（0~45）
-        zoom: 12, // 设置地图缩放级别
-        center: center // 设置地图中心点坐标
-      })
+      // const map = new window.TMap.Map(document.getElementById(domID), {
+      //   //rotation: 20, // 设置地图旋转角度
+      //   //pitch: 30, // 设置俯仰角度（0~45）
+      //   zoom: 12, // 设置地图缩放级别
+      //   center: center // 设置地图中心点坐标
+      // })
+
+
+
+
 
       this.map = map
 

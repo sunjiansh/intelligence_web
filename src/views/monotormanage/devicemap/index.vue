@@ -1,5 +1,12 @@
 <template>
-  <div class="app-container">
+  <div class="">
+    <div style="position: absolute;z-index: 999999;margin-top: 30px;margin-left: 50px;">
+      <el-select v-model="selId" clearable placeholder="请选择或输入手环IMEI" filterable="true" class="filter-item" style="width: 330px">
+        <el-option v-for="item in markersData" :key="item.id" :label="item.imei" :value="item.id"  />
+      </el-select>
+      <el-button class="filter-item" size="mini" type="success" icon="el-icon-search"   @click="moveTo">搜索</el-button>
+      <span style="font-size: 15px;">共 {{markersData.length}} 台</span>
+    </div>
     <div class="map">
       <div id="map" />
     </div>
@@ -18,6 +25,8 @@
         tMap:null,
         markersData: [], // 标记数据
         infoWin: null, // 信息窗口实例
+        markersDataMap:{},
+        selId:null
       }
     },
     created() {
@@ -53,6 +62,7 @@
           list.forEach((item, index) => {
             //alert(item.lat)
             this.markersData.push(item)
+            this.markersDataMap[item.id]=item
           })
 
           //渲染marker
@@ -107,11 +117,10 @@
         //给标识添加点击事件
         this.marker.on("click", (event) => {
           let { lat, lng } = event.latLng;
-          let { name, phone,sex,imei, locationDesc} = event.geometry.properties;
-          this.initWindow(name, sex,phone,imei, locationDesc,lat, lng);
+          let { name, phone,sex,imei, locationDesc,avatar} = event.geometry.properties;
+          this.initWindow(name, sex,phone,imei, locationDesc,lat, lng,avatar);
           this.infoWin.open();
         })
-
 
           this.selfAdaptionMarker(markerArr)
 
@@ -147,7 +156,7 @@
       },
 
       // 初始化一个信息窗口
-      initWindow(name,sex,phone,imei,locationDesc,lat,lon) {
+      initWindow(name,sex,phone,imei,locationDesc,lat,lon,avatar) {
         // 一次只能打开一个窗口 打开之前先关闭之前打开的
         if (this.infoWin) {
           this.closeWindow()
@@ -157,11 +166,26 @@
           position: new this.TXMap.LatLng(lat, lon),
           // enableCustom: true,
           content: `<ul class="equipment">
+                      <li><a href="https://image.dayouqiantu.cn/5e79f6cfd33b6.png" class="el-avatar" /></li>
                       <li>名称：<span>${name}</span></li>
                       <li>性别：<span class="${sex == 1 ? "male" : "female"}">${sex == 1 ? "男" : sex==0 ? "女" : "未知"}</span></li>
                       <li>电话：<span>${phone}</span></li>
                       <li>地址：<span>${locationDesc}</span></li>
                     </ul>`,
+
+          content:`<el-card class="box-card" >
+                    <div class="card-header">
+                    <span>
+                      <a style="color: #42b983" target="_blank"><img src="${avatar}" alt="点击打开" class="el-avatar"></a>
+                    </span>
+                    </div>
+                    <div style="height: 200px;width: 200px;text-align: left;font-size: 20px; white-space:normal;word-break:break-all;word-wrap:break-word; ">
+                      <div>${name}</div>
+                      <div>${sex == 1 ? "男" : sex==0 ? "女" : "未知"}</div>
+                      <div>${phone}</div>
+                      <div>${locationDesc}</div>
+                    </div>
+                  </el-card>`,
           offset: { x: 0, y: -30 }, //设置信息窗相对position偏移像素
         })
 
@@ -175,6 +199,15 @@
         if (this.infoWin) {
           this.infoWin.close()
         }
+      },
+      moveTo(){
+
+        let item = this.markersDataMap[this.selId]
+        let lat = item['lat']
+        let lon = item['lon']
+        let ce = new TMap.LatLng(lat, lon)
+        this.tMap.setCenter(ce)
+
       }
 
     }
@@ -182,5 +215,26 @@
 </script>
 
 <style scoped>
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .text {
+    font-size: 14px;
+  }
+
+  .item {
+    margin-bottom: 0px;
+    margin-top: 10px;
+  }
+
+  .box-card {
+    width: 480px;
+  }
+
+
+
 
 </style>
