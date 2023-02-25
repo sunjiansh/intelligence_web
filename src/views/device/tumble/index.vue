@@ -51,6 +51,7 @@
         <el-table-column v-if="false" prop="id" label="id" />
         <el-table-column v-if="columns.visible('name')" prop="name" label="名称" />
         <el-table-column v-if="columns.visible('imei')" prop="imei" label="imei" />
+        <el-table-column  prop="iccid" label="iccid" />
         <el-table-column v-if="columns.visible('model')" prop="model" label="型号" />
         <el-table-column v-if="columns.visible('sn')" prop="sn" label="序列号" />
         <el-table-column v-if="columns.visible('brand')" prop="brand" label="品牌" />
