@@ -4,12 +4,12 @@
     <div class="head-container">
       <!--如果想在工具栏加入更多按钮，可以使用插槽方式， slot = 'left' or 'right'-->
 
-      <el-input v-model="query.value" clearable placeholder="输入搜索内容" style="width: 200px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
-      <el-select v-model="query.type" clearable placeholder="类型" class="filter-item" style="width: 130px">
-        <el-option v-for="item in queryTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
-      </el-select>
+      <el-input v-model="query.memberPhone" clearable placeholder="手机号" style="width: 200px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
+      <!--<el-select v-model="query.type" clearable placeholder="类型" class="filter-item" style="width: 130px">-->
+        <!--<el-option v-for="item in queryTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />-->
+      <!--</el-select>-->
       <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="crud.toQuery">搜索</el-button>
-      <!--<crudOperation :permission="permission" />-->
+      <crudOperation :permission="permission" />
       <!--表单组件-->
       <el-dialog :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="600px">
         <el-form ref="form" :model="form" :rules="rules" size="small" label-width="100px">
@@ -37,7 +37,7 @@
           <el-form-item label="会员剩余天数">
             <el-input v-model="form.lastDays" style="width: 370px;" />
           </el-form-item>
-          <el-form-item label="创建时间">
+          <el-form-item label="创建时间" v-if="false">
             <el-input v-model="form.createTime" style="width: 370px;" />
           </el-form-item>
         </el-form>

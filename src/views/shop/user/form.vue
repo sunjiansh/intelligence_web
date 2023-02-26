@@ -49,9 +49,9 @@
           end-placeholder="结束日期">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="SOS联系人电话" >
-        <el-input v-model="form.sosContact" placeholder="多个手机号用英文输入法“,”隔开" style="width: 370px;" />
-      </el-form-item>
+      <!--<el-form-item label="SOS联系人电话" >-->
+        <!--<el-input v-model="form.sosContact" placeholder="多个手机号用英文输入法“,”隔开" style="width: 370px;" />-->
+      <!--</el-form-item>-->
       <el-form-item label="用户备注">
         <el-input v-model="form.mark" style="width: 370px;" />
       </el-form-item>

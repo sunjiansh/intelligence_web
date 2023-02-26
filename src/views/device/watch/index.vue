@@ -69,14 +69,14 @@
           <!--</template>-->
         <!--</el-table-column>-->
 
-        <el-table-column label="是否同步到平台" align="center">
-          <template slot-scope="scope">
-            <div>
-              <el-tag v-if="scope.row.isConfig == 1" style="cursor: pointer" :type="''">已同步</el-tag>
-              <el-tag v-else style="cursor: pointer" :type=" 'info' ">未同步</el-tag>
-            </div>
-          </template>
-        </el-table-column>
+        <!--<el-table-column label="是否同步到平台" align="center">-->
+          <!--<template slot-scope="scope">-->
+            <!--<div>-->
+              <!--<el-tag v-if="scope.row.isConfig == 1" style="cursor: pointer" :type="''">已同步</el-tag>-->
+              <!--<el-tag v-else style="cursor: pointer" :type=" 'info' ">未同步</el-tag>-->
+            <!--</div>-->
+          <!--</template>-->
+        <!--</el-table-column>-->
 
         <el-table-column v-if="columns.visible('isActive')" prop="isActive" label="是否激活">
           <template slot-scope="scope">

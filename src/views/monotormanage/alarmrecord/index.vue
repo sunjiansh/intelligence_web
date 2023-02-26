@@ -2,11 +2,19 @@
   <div class="app-container">
     <!--工具栏-->
     <div class="head-container">
-      <div v-if="crud.props.searchToggle">
+      <!--<div v-if="crud.props.searchToggle">-->
+      <div >
         <!-- 搜索 -->
         <el-input v-model="query.value" clearable placeholder="输入搜索内容" style="width: 200px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
         <el-select v-model="query.type" clearable placeholder="类型" class="filter-item" style="width: 130px">
           <el-option v-for="item in queryTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
+        </el-select>
+        <el-select v-model="query.alarmType" filterable placeholder="报警类型" style="width: 150px;">
+          <el-option
+            v-for="item in dict.alarm_type"
+            :key="item.id"
+            :label="item.label"
+            :value="item.value" />
         </el-select>
         <el-date-picker
           v-model="query.createTime"
@@ -129,7 +137,6 @@ export default {
       rules: {
       },
       queryTypeOptions: [
-        { key: 'alarmType', display_name: '报警类型' },
         { key: 'phone', display_name: '手机号' },
         { key: 'imei', display_name: '手环imei' },
         { key: 'menberName', display_name: '会员姓名' }

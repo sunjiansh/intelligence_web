@@ -244,6 +244,8 @@ export default {
     },
     showPosition() {
       this.positionDialog = true
+      //给一个默认半径值
+      this.form.regionRange = 500
       this.latitude = 30
       this.longitude = 119
       if (this.latitude !== 0 || this.longitude !== 0) {
