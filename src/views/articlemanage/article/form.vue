@@ -12,11 +12,13 @@
           </el-form-item>
           <el-form-item label="文章类型" prop="type">
             <el-select v-model="form.type" filterable placeholder="请选择" style="width: 370px;">
-              <el-option
-                v-for="item in dict.article_type"
-                :key="item.id"
-                :label="item.label"
-                :value="item.value" />
+              <!--<el-option-->
+                <!--v-for="item in dict.article_type"-->
+                <!--:key="item.id"-->
+                <!--:label="item.label"-->
+                <!--:value="item.value" />-->
+              <el-option :value="1" label="养生帮助" />
+              <el-option :value="2" label="帮助中心"/>
             </el-select>
           </el-form-item>
           <el-form-item label="标签">
@@ -25,8 +27,8 @@
 
           <el-form-item label="是否发布" prop="status">
             <el-select v-model="form.status" placeholder="请选择" style="width: 370px;">
-              <el-option value="0" label="否"/>
-              <el-option value="1" label="是"/>
+              <el-option :value="0" label="否" />
+              <el-option :value="1" label="是"/>
             </el-select>
           </el-form-item>
 
@@ -69,7 +71,7 @@ export default {
         id: null,
         label: '',
         title:'',
-        type: null,
+        type: '',
         content: '',
         status: ''
       },
