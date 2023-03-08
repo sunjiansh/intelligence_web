@@ -4,7 +4,7 @@
       <el-form-item label="用户昵称" v-if="false">
         <el-input v-model="form.nickname" style="width: 370px;" />
       </el-form-item>
-      <el-form-item label="真实姓名">
+      <el-form-item label="真实姓名" prop="realName">
         <el-input v-model="form.realName" style="width: 370px;" />
       </el-form-item>
       <!--<el-form-item label="密码" v-if = "this.isAdd" >-->
@@ -20,12 +20,14 @@
         </el-date-picker>
       </el-form-item>
 
-      <el-form-item label="性别" >
+      <el-form-item label="性别" prop="sex">
         <el-radio  v-model="form.sex" :label="1">男</el-radio>
         <el-radio  v-model="form.sex" :label="0">女</el-radio>
         <el-radio  v-model="form.sex" :label="2">未知</el-radio>
       </el-form-item>
-
+      <el-form-item label="年龄" prop="age">
+        <el-input v-model="form.age" style="width: 370px;" />
+      </el-form-item>
       <el-form-item label="手机号码" prop="phone">
         <el-input v-model="form.phone" style="width: 370px;" :disabled="!this.isAdd"/>
       </el-form-item>
@@ -148,12 +150,19 @@ export default {
         serviceEnd:'',
         validTimeArr: [],
         sex:null,
-        uricSn:''
+        uricSn:'',
+        age:null
       },
       rules: {
         phone: [
           { required: true, message: '请输入手机号码', trigger: 'blur' },
           {min: 11, max: 11, message: '长度必须为11位', trigger: 'blur'},
+        ],
+        realName: [
+          { required: true, message: '请输入真实姓名', trigger: 'blur' },
+        ],
+        sex: [
+          { required: true, message: '请选择性别', trigger: 'blur' },
         ]
       }
     }

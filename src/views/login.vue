@@ -6,15 +6,15 @@
           康泰中芯
         </h3>
         <ul style="margin: 0;color: #ffffff;font-size: 15px;line-height: 25px;padding-left: 20px">
-          <li>Springboot2</li>
-          <li>MybatisPlus</li>
-          <li>SpringSecurity</li>
-          <li>Jwt</li>
-          <li>Redis</li>
-          <li>Vue</li>
+          <!--<li>Springboot2</li>-->
+          <!--<li>MybatisPlus</li>-->
+          <!--<li>SpringSecurity</li>-->
+          <!--<li>Jwt</li>-->
+          <!--<li>Redis</li>-->
+          <!--<li>Vue</li>-->
         </ul>
         <h3 style="color: #ffffff;">
-          官网:https://XXXXXXX
+          <!--官网:https://XXXXXXX-->
         </h3>
       </div>
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" label-position="left" label-width="0px" class="login-form">

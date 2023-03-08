@@ -303,7 +303,8 @@ export default {
         validTimeArr: [data.serviceStart,data.serviceEnd],
         sex:data.sex,
         uricSn:data.uricSn,
-        sosContact:data.sosContact
+        sosContact:data.sosContact,
+        age:data.age
       }
       _this.dialog = true
     },

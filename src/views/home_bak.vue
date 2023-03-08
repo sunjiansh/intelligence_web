@@ -3,6 +3,59 @@
     <div class="dashboard-editor-container">
       <!--<yshop-info />-->
       <panel-group />
+      <panel-group-t />
+
+      <div class="divBox">
+        <el-card :bordered="false" dis-hover>
+          <div slot="header">
+            <div class="acea-row row-middle">
+              <el-avatar
+                icon="el-icon-s-operation"
+                size="small"
+                style="color: #1890ff; background: #e6f7ff; font-size: 13px"
+              />
+              <span class="ivu-pl-8">统计</span>
+            </div>
+          </div>
+          <el-row :gutter="24">
+            <el-col
+              :xl="8"
+              :lg="8"
+              :md="24"
+              :sm="24"
+              :xs="24"
+              class="ivu-mb mb10 dashboard-console-visit"
+            >
+              <span class="ivu-pl-8">商品分析</span>
+              <order-count></order-count>
+            </el-col>
+            <el-col
+              :xl="8"
+              :lg="8"
+              :md="24"
+              :sm="24"
+              :xs="24"
+              class="ivu-mb mb10 dashboard-console-visit"
+            >
+              <span class="ivu-pl-8">本月成交额</span>
+            
+              <bar-chart />
+            </el-col>
+            <el-col
+              :xl="8"
+              :lg="8"
+              :md="24"
+              :sm="24"
+              :xs="24"
+              class="ivu-mb mb10 dashboard-console-visit"
+            >
+              <span class="ivu-pl-8">本月订单数</span>
+
+              <pie-chart />
+            </el-col>
+          </el-row>
+        </el-card>
+      </div>
     </div>
   </div>
 </template>

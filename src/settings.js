@@ -45,6 +45,7 @@ module.exports = {
   footerTxt: '© 2018-2022  <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">All Rights Reserved</a>',
   /**
    * 备案号
+   * caseNumber: '苏ICP XXXXX'
    */
-  caseNumber: '苏ICP XXXXX'
+  caseNumber: ''
 }
