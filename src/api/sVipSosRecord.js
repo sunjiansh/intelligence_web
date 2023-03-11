@@ -24,4 +24,18 @@ export function edit(data) {
   })
 }
 
-export default { add, edit, del }
+
+export function getAllHealthData(uid,day) {
+  return request({
+    url: 'api/sVipSosRecord/getAllHealthDataByDay',
+    method: 'post',
+    data: {
+      uid:uid,
+      day:day
+    }
+  })
+}
+
+
+
+export default { add, edit, del,getAllHealthData }

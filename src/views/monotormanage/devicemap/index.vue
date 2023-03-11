@@ -87,7 +87,8 @@
               imei:item.imei,
               locationDesc:item.locationDesc,
               lat:item.lat,
-              lon:item.lon
+              lon:item.lon,
+              avatar:item.avatar
             },
           }
           myMarkers.push(obj)
@@ -166,7 +167,7 @@
           position: new this.TXMap.LatLng(lat, lon),
           // enableCustom: true,
           content: `<ul class="equipment">
-                      <li><a href="https://image.dayouqiantu.cn/5e79f6cfd33b6.png" class="el-avatar" /></li>
+                      <li><a href="${avatar}" class="el-avatar" /></li>
                       <li>名称：<span>${name}</span></li>
                       <li>性别：<span class="${sex == 1 ? "male" : "female"}">${sex == 1 ? "男" : sex==0 ? "女" : "未知"}</span></li>
                       <li>电话：<span>${phone}</span></li>

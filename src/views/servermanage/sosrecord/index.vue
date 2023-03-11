@@ -46,6 +46,10 @@
           <el-button :loading="crud.cu === 2" type="primary" @click="crud.submitCU">确认</el-button>
         </div>
       </el-dialog>
+
+
+
+
       <!--表格渲染-->
       <el-table ref="table" v-loading="crud.loading" :data="crud.data" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
         <el-table-column type="selection" width="55" />
@@ -72,6 +76,13 @@
         </el-table-column>
         <el-table-column v-permission="['admin','sVipSosRecord:edit','sVipSosRecord:del']" label="操作" width="150px" align="center">
           <template slot-scope="scope">
+            <el-button
+              class="filter-item"
+              size="mini"
+              type="primary"
+              icon="el-icon-view"
+              @click="viewHealth(scope.row.memberId)"
+            >查看</el-button>
             <udOperation
               :data="scope.row"
               :permission="permission"
@@ -81,6 +92,13 @@
       </el-table>
       <!--分页组件-->
       <pagination />
+
+
+      <el-dialog :visible.sync="healthdialog" v-if="healthdialog" height="400px" >
+        健康信息
+        <Health ref="healthform"  :uid="uid" ></Health>
+      </el-dialog>
+
     </div>
   </div>
 </template>
@@ -93,17 +111,19 @@ import crudOperation from '@crud/CRUD.operation'
 import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
 import MaterialList from "@/components/material";
+import Health from "./health";
 
 // crud交由presenter持有
 const defaultCrud = CRUD({ title: '会员服务管理-SOS记录', url: 'api/sVipSosRecord', sort: 'id,desc', crudMethod: { ...crudSVipSosRecord }})
 const defaultForm = { id: null, memberName: null, memberId: null, memberPhone: null, sosTime: null, sosContact: null, serviceEndTime: null, lastDays: null, createTime: null }
 export default {
   name: 'SVipSosRecord',
-  components: { pagination, crudOperation, rrOperation, udOperation ,MaterialList},
+  components: { pagination, crudOperation, rrOperation, udOperation ,MaterialList,Health},
   mixins: [presenter(defaultCrud), header(), form(defaultForm), crud()],
   data() {
     return {
-
+      uid:null,
+      healthdialog:false,
       permission: {
         add: ['admin', 'sVipSosRecord:add'],
         edit: ['admin', 'sVipSosRecord:edit'],
@@ -130,6 +150,12 @@ export default {
     }, // 新增与编辑前做的操作
     [CRUD.HOOK.afterToCU](crud, form) {
     },
+    viewHealth(uid){
+      this.uid = uid
+      this.healthdialog = !this.healthdialog
+
+
+    }
   }
 }
 
